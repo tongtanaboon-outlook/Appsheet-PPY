@@ -1,0 +1,81 @@
+from_table,from_kind,from_column,to_table,to_kind,to_key_column,direction
+SCGนครหลวงJWDภูมิภาค,business,ID_Doc_Return,Doc_Return,business,ID_Doc_Return,many-to-one
+SCGนครหลวงJWDภูมิภาค,business,SM_Link_SCG,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+SCGนครหลวงJWDภูมิภาค,business,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+ข้อมูลการเข้าบำรุงรักษา,business,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+ข้อมูลการวางบิล,business,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+แจ้งปั ญหาระหว่างวัน,business,SM_Link,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+แจ้งปั ญหาระหว่างวัน,business,RT_Link,ข้อมูลงานRT,business,ID_RT,many-to-one
+แจ้งปั ญหาระหว่างวัน,business,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+รับงานคืนได้เงิน200,business,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+สรุปเบิกส่วนต่าง,business,_ComputedKey_ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+Image_Doc_Return,business,ID_Doc_Return,Doc_Return,business,ID_Doc_Return,many-to-one
+ทำเบิกส่วนต่างScgวังน้อย,business,ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+ทำเบิกส่วนต่างScgวังน้อย,business,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+ScanDocs,business,Invoice_No,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+ส่งงานที่ยังไม่มีข้อมูลในระบบ,business,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Acknowledge_Logs,business,ID_ประกาศ,Announcements,business,ID_ประกาศ,many-to-one
+Process for ปริ๊นใบวางบิล Process Table,bot,ปริ๊นใบวางบิล_step,ปริ๊นใบวางบิล_step Output,bot,InstanceId,many-to-one
+Process for Telegram_แจ้งปั ญหา - 1 Process Table,bot,SM_Link,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+Process for Telegram_แจ้งปั ญหา - 1 Process Table,bot,RT_Link,ข้อมูลงานRT,business,ID_RT,many-to-one
+Process for Telegram_แจ้งปั ญหา - 1 Process Table,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for Telegram_แจ้งปั ญหา - 1 Process Table,bot,Telegram_แจ้งปั ญหา2,Telegram_แจ้งปั ญหา2 Output,bot,InstanceId,many-to-one
+Process for Bot_รับสินค้าคืน - 1 Process Table,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for Bot_รับสินค้าคืน - 1 Process Table,bot,เข้ารับสินค้าคืน,เข้ารับสินค้าคืน Output,bot,InstanceId,many-to-one
+Process for เพิ่มรูปรับคืน - 1 Process Table,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for เพิ่มรูปรับคืน - 1 Process Table,bot,New step,New step Output,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิลเอเทน - 1 Process Table,bot,Clear,Clear Output,bot,InstanceId,many-to-one
+Process for สรุปส่วนต่าง - 1 Process Table,bot,_ComputedKey_ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+Process for สรุปจำนวนจุดที่ส่งงานSCGวังน้อย Process Table,bot,เคลียสรุปจุดส่ง,เคลียสรุปจุดส่ง Output,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิลโอนคลัง มโนยนต์ (นวนคร) Process Table,bot,Clear,Clear Output 2,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิล_โอนคลัง กระสอบ2(บางบัวทอง) Process Table,bot,Clear,Clear Output 3,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิล_ไอโรบอท Process Table,bot,Clear,Clear Output 4,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิล_โอนคลัง เอเธน Process Table,bot,Clear,Clear Output 5,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิล_รับเอกสาร (งานพี่เหน่ง) สตีเบล Process Table,bot,Clear,Clear Output 6,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิล_รับเอกสาร (งานพี่เหน่ง) Process Table,bot,Clear,Clear Output 7,bot,InstanceId,many-to-one
+Process for ฺBot_4ตัว_จัดเรียงเส้นทาง Process Table,bot,ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+Process for ฺBot_4ตัว_จัดเรียงเส้นทาง Process Table,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for ฺBot_4ตัว_จัดเรียงเส้นทาง Process Table,bot,GoogleMapsRoutesAPI_Step,GoogleMapsRoutesAPI_Step Output,bot,InstanceId,many-to-one
+Process for โอนคลัง (GQ) จีคิว Process Table,bot,Clear,Clear Output 8,bot,InstanceId,many-to-one
+Process for MeSpace Process Table,bot,Clear,Clear Output 9,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิล_คลังSCGJWDวังน้อย Process Table,bot,Clear,Clear Output 10,bot,InstanceId,many-to-one
+Process for ทำเบิกส่วนต่างScgวังน้อย - 1 Process Table,bot,ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+Process for ทำเบิกส่วนต่างScgวังน้อย - 1 Process Table,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for ทำเบิกส่วนต่างScgวังน้อย - 1 Process Table,bot,ทำเบิกส่วนต่างScgวังน้อยstep,ทำเบิกส่วนต่างScgวังน้อยstep Output,bot,InstanceId,many-to-one
+Process for ทำเบิกส่วนต่างScgวังน้อย - 1 Process Table,bot,New step2,New step2 Output,bot,InstanceId,many-to-one
+Process for ทำเบิกส่วนต่างScgวังน้อย - 1 Process Table,bot,ไม่ผ่านNew step,ไม่ผ่านNew step Output,bot,InstanceId,many-to-one
+New step2 Output,bot,ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+New step2 Output,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+ไม่ผ่านNew step Output,bot,ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+ไม่ผ่านNew step Output,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for AppSheet_KM - 1 Process Table,bot,ID_Doc_Return,Doc_Return,business,ID_Doc_Return,many-to-one
+Process for AppSheet_KM - 1 Process Table,bot,SM_Link_SCG,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+Process for AppSheet_KM - 1 Process Table,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for AppSheet_KM - 1 Process Table,bot,AppSheet___KM,AppSheet___KM Output,bot,InstanceId,many-to-one
+Process for AppSheet_KM - 1 Process Table,bot,New step,New step Output 2,bot,InstanceId,many-to-one
+New step Output 2,bot,ID_Doc_Return,Doc_Return,business,ID_Doc_Return,many-to-one
+New step Output 2,bot,SM_Link_SCG,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+New step Output 2,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for New bot - 1 Process Table,bot,SM_Link,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+Process for New bot - 1 Process Table,bot,RT_Link,ข้อมูลงานRT,business,ID_RT,many-to-one
+Process for New bot - 1 Process Table,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for New bot - 1 Process Table,bot,New step,New step Output 3,bot,InstanceId,many-to-one
+New step Output 3,bot,SM_Link,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+New step Output 3,bot,RT_Link,ข้อมูลงานRT,business,ID_RT,many-to-one
+New step Output 3,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for Update ScanStatus เมื่อสแกน Invoice - 1 Process Table,bot,Invoice_No,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+Process for Update ScanStatus เมื่อสแกน Invoice - 1 Process Table,bot,Update,Update Output,bot,InstanceId,many-to-one
+Update Output,bot,Invoice_No,ตารางงานประจำวัน,business,ID_งานประจำวัน,many-to-one
+Process for ปริ๊นใบวางบิล_เบทาโกร+เหมาตู้ Process Table,bot,Clear,Clear Output 11,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิล_LINEMAN (6W) (SCG Express) Process Table,bot,Clear,Clear Output 12,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิล_Thai paper (SCG Express) - 1 Process Table,bot,Clear,Clear Output 13,bot,InstanceId,many-to-one
+Process for ปริ๊นใบวางบิล_โอนคลัง บุญถาวร เกษตร_นวมิ นทร์ - 1 Process Table,bot,Clear,Clear Output 14,bot,InstanceId,many-to-one
+Process for Bot_เบิกค่าขนส่งตามระยะทาง - 1 Process Table,bot,ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+Process for Bot_เบิกค่าขนส่งตามระยะทาง - 1 Process Table,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+Process for Bot_เบิกค่าขนส่งตามระยะทาง - 1 Process Table,bot,เบิกตามระยะทาง,เบิกตามระยะทาง Output,bot,InstanceId,many-to-one
+Process for Bot_เบิกค่าขนส่งตามระยะทาง - 1 Process Table,bot,New step4,New step4 Output,bot,InstanceId,many-to-one
+Process for Bot_เบิกค่าขนส่งตามระยะทาง - 1 Process Table,bot,New step3,New step3 Output,bot,InstanceId,many-to-one
+New step4 Output,bot,ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+New step4 Output,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one
+New step3 Output,bot,ID_SCGนครหลวงJWDภูมิภาค,SCGนครหลวงJWDภูมิภาค,business,ID_SCGนครหลวงJWDภูมิภาค,many-to-one
+New step3 Output,bot,ID_พนักงาน,ข้อมูลพนักงาน,business,ID_พนักงาน,many-to-one

@@ -1,0 +1,22 @@
+{
+  "_comment": "Copy to config.local.json (git-ignored) and fill in. Used by scripts/pull_data.py --mode sheets",
+  "type": "service_account",
+  "project_id": "YOUR_PROJECT_ID",
+  "private_key_id": "...",
+  "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
+  "client_email": "name@project.iam.gserviceaccount.com",
+  "client_id": "000000000000000000000",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/name%40project.iam.gserviceaccount.com",
+  "_appsheet": {
+    "_comment": "AppSheet API key + app id: open the app URL, it looks like https://appsheet.app/<APP_ID>?appServiceId=<API_KEY>",
+    "app_id": "เผ่าปัญญาทรานสปอร์ต-915154893",
+    "api_key": "PASTE_API_KEY_HERE"
+  },
+  "_google_sheets": {
+    "_comment": "Data -> Sources in AppSheet shows the backing Google Sheet; copy the id from its URL",
+    "spreadsheet_id": "PASTE_SPREADSHEET_ID_HERE"
+  }
+}

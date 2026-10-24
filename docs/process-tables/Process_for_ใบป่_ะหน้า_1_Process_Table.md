@@ -1,0 +1,42 @@
+# Process for ใบป่ ะหน้า - 1 Process Table
+
+<!-- table: Process for ใบป่ ะหน้า - 1 Process Table -->
+<!-- bot: Process for ใบป่ ะหน้า - 1 Process Table -->
+
+> **ตารางของระบบอัตโนมัติ (bot)** — ไม่ใช่ข้อมูลธุรกิจ
+
+| คุณสมบัติ | ค่า |
+|---|---|
+| ชนิด | bot |
+| ที่มาข้อมูล | `native` |
+| source_path | `/ProcessStateTables/70999aca-5a1f-4dfc-907b417bc046f574/49b0d141-06ad-4dee-8b9828d36413634b/State Table` |
+| จำนวนคอลัมน์ | 11 |
+| เห็นใน UI | `NEVER` |
+
+## คอลัมน์ทั้งหมด
+
+| # | ชื่อคอลัมน์ | ประเภท | คำอธิบาย | สูตร / ค่าเริ่มต้น | Key |
+|---:|---|---|---|---|:---:|
+| 1 | `Instance Id` | Text | คอลัมน์ข้อความ — **Key ของแถว** | — | ✅ |
+| 2 | `ID_XLSXพนักงาน` | Text | คอลัมน์ข้อความ | — |  |
+| 3 | `ชื่อ - นามสกุล` | Text | คอลัมน์ข้อความ — ตรวจความถูกต้องตามเงื่อนไข | — |  |
+| 4 | `StartDate` | Date | คอลัมน์วันที่ | — |  |
+| 5 | `EndDate` | Date | คอลัมน์วันที่ | — |  |
+| 6 | `ราคารวม` | Price | คอลัมน์ราคา | — |  |
+| 7 | `Export to XLSX` | Yes/No | คอลัมน์ใช่/ไม่ใช่ | — |  |
+| 8 | `ชื่อไฟล์` | Text | คอลัมน์ข้อความ | — |  |
+| 9 | `ผลลัพท์.` | List | คอลัมน์รายการอ้างอิง | — |  |
+| 10 | `debugstartdate` | Date | คอลัมน์วันที่ | — |  |
+| 11 | `debugenddate` | Date | คอลัมน์วันที่ | — |  |
+
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: Instance Id -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: ID_XLSXพนักงาน -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: ชื่อ - นามสกุล -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: StartDate -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: EndDate -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: ราคารวม -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: Export to XLSX -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: ชื่อไฟล์ -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: ผลลัพท์. -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: debugstartdate -->
+<!-- col: Process for ใบป่ ะหน้า - 1 Process Table :: debugenddate -->

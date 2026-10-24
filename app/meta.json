@@ -1,0 +1,25 @@
+{
+  "app_name": "เผ่าปัญญาทรานสปอร์ต",
+  "app_id": "เผ่าปั ญญาทรานสปอร์ต-915154893",
+  "app_version": "1.004638",
+  "app_folder": "/appsheet/data/เผ่าปั ญญาทรานสปอร์ต-915154893",
+  "function": "Other",
+  "runnable": true,
+  "deployable": false,
+  "personal_use_only": false,
+  "documentation_generated_at": "2026-09-15T02:56:32+07:00",
+  "source_document": "Application Documentation.PDF",
+  "counts": {
+    "tables": 90,
+    "business_tables": 29,
+    "bot_tables": 60,
+    "system_tables": 1,
+    "columns": 2304,
+    "computed_columns": 319,
+    "relations": 80,
+    "views": 115,
+    "actions": 214,
+    "slices": 8,
+    "format_rules": 11
+  }
+}
