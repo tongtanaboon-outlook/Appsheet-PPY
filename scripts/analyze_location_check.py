@@ -116,6 +116,9 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default=str(REPO / "data"))
     ap.add_argument("--out")
+    ap.add_argument("--join-key", default="SM_Link_SCG",
+                    help="คอลัมน์ในชีต SCG ที่ชี้กลับไปแถวของชีตงานประจำวัน "
+                         "(ค่าเริ่มต้น = SM_Link_SCG ซึ่งเป็น Ref ตัวเดียวกับที่แอปใช้)")
     args = ap.parse_args()
     data_dir = Path(args.data)
 
@@ -133,13 +136,17 @@ def main() -> int:
     print(f"อ่านแล้ว: {daily_path.name} ({len(daily)} แถว) · {scan_path.name} ({len(scan)} แถว)")
     print()
 
-    # --- index the daily table by MATCH_KEY and by row order ---------------
-    by_match: dict[str, dict] = {}
+    # --- index the daily table the same way the app does ------------------
+    # The SCG sheet pulls from ตารางงานประจำวัน through the Ref column
+    # SM_Link_SCG (its value is the daily table key ID_งานประจำวัน).
+    # That is the join we must measure - not MATCH_KEY, which is a different
+    # mechanism inside the app.
+    by_ref: dict[str, dict] = {}
     by_invoice_first: dict[str, dict] = {}
     for row in daily:
-        mk = col(row, "MATCH_KEY")
-        if mk and mk not in by_match:
-            by_match[mk] = row
+        key = col(row, "ID_งานประจำวัน")
+        if key and key not in by_ref:
+            by_ref[key] = row
         inv = col(row, "Invoice No")
         if inv and inv not in by_invoice_first:
             by_invoice_first[inv] = row
@@ -153,16 +160,16 @@ def main() -> int:
 
     for row in scan:
         stats["scan_rows"] += 1
-        mk = col(row, "MATCH_KEY")
-        actual = parse_latlong(col(row, "จุดส่งสินค้าปลายทาง", "จุดส่งสินค้าปลายทาง"))
+        ref_key = col(row, args.join_key)
+        actual = parse_latlong(col(row, "จุดส่งสินค้าปลายทาง"))
         if actual is None:
             stats["scan_without_point"] += 1
             continue
-        if not mk:
+        if not ref_key:
             stats["scan_without_match_key"] += 1
             continue
 
-        d_row = by_match.get(mk)
+        d_row = by_ref.get(ref_key)
         if d_row is None:
             stats["match_key_not_found"] += 1
             continue
@@ -201,10 +208,11 @@ def main() -> int:
     print("=" * 66)
     print("ผลการวิเคราะห์ระยะทาง (LatLong_Actual vs จุดส่งสินค้าปลายทาง)")
     print("=" * 66)
+    print(f"วิธีจับคู่: {args.join_key} (ค่าในคอลัมน์นี้ต้อง = ID_งานประจำวัน ของชีตงานประจำวัน)")
     print(f"แถวในชีตสแกน              : {stats['scan_rows']:,}")
     print(f"  ไม่มีพิกัดจุดส่งสินค้าปลายทาง: {stats['scan_without_point']:,}")
-    print(f"  ไม่มี MATCH_KEY           : {stats['scan_without_match_key']:,}")
-    print(f"  จับคู่ MATCH_KEY ไม่เจอแถว: {stats['match_key_not_found']:,}")
+    print(f"  ไม่มี {args.join_key:20s}: {stats['scan_without_match_key']:,}")
+    print(f"  จับคู่ {args.join_key} ไม่เจอแถว: {stats['match_key_not_found']:,}")
     print(f"  จับคู่ได้                 : {stats['matched']:,}")
     print(f"  แต่แถวนั้นไม่มี LatLong_Actual: {stats['daily_without_latlong_actual']:,}")
     print(f"  **เทียบได้จริง**          : {stats['comparable']:,}")
