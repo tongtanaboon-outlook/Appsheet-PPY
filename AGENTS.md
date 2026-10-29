@@ -42,6 +42,7 @@ docs/
 ├── 06-glossary.md                      อภิธานศัพท์ไทย-อังกฤษ
 ├── 07-validation-report.md             ผลตรวจความครบถ้วน
 ├── 08-ai-starter-prompts.md            พรอมต์พร้อมใช้ 8 แบบ
+├── 09-location-check-design.md         ออกแบบฟีเจอร์ตรวจตำแหน่ง (20 ม. + ปุ่มยืนยัน)
 ├── tables/          ← 29 ไฟล์ md  (ตารางจริง ทีละตาราง)
 ├── process-tables/  ← 61 ไฟล์ md  (ตารางบอท ทีละตาราง)
 └── rules/           ← 11 ไฟล์ md  (Format Rule ทีละกติกา)
