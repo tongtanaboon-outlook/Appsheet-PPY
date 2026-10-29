@@ -17,6 +17,7 @@
 [PASS] actions point at a known table
 [PASS] every action declares its target table
 [PASS] views carry a known view type
+[PASS] expressions flagged for manual review are listed - 2: ข้อมูลการวางบิล :: สถานะการอนุมัติ, ScanDocs :: สรุปยอด
 [PASS] every column has a type
 [PASS] data dictionary covers every table - 0 missing: 
 [PASS] data dictionary covers every column - 0 missing: 
@@ -64,6 +65,7 @@ All checks passed.
 |---|---|---|
 | ข้อมูลระดับแถว (rows) | ยังไม่มี | export จาก AppSheet / Google Sheets ตาม `data/README.md` |
 | นิยามบอท (event/trigger/schedule) | ไม่มีใน PDF | AppSheet -> Automations -> Bots -> export -> `app/automations.json` |
+| คอลัมน์ที่สูตรอาจไม่ครบ (PDF วาดทับตารางคุณสมบัติ) | 2 คอลัมน์ | ตรวจในแอป: `ข้อมูลการวางบิล.สถานะการอนุมัติ`, `ScanDocs.สรุปยอด` (ติดธงไว้ที่คอลัมน์ `needs_review`) |
 | คำอธิบายเชิงธุรกิจรายคอลัมน์ | สร้างแบบอัตโนมัติจากชื่อ+ชนิด+สูตร | ถ้าต้องการระดับมืออาชีพ ค่อยเขียนทับ (ไฟล์ยัง generate ใหม่ได้ทันที) |
 
 ## วิธีตรวจซ้ำ

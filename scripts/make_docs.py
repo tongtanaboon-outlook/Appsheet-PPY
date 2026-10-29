@@ -152,6 +152,14 @@ def table_doc(t: dict, cols: list[dict], rels: list[dict], incoming: list[dict],
         out.append(f"| สิทธิ์แก้ไข | `{t['updates_allowed']}` |")
     out.append("")
 
+    flagged = [c["name"] for c in cols if c.get("needs_review")]
+    if flagged:
+        out.append("> ⚠️ **ต้องตรวจสูตรในแอป**: คอลัมน์นี้มีค่าที่ PDF วาดทับกับตารางคุณสมบัติ "
+                   "ของคอลัมน์เอง ทำให้สูตรที่คัดลอกมาอาจไม่ครบ — "
+                   + ", ".join(f"`{n}`" for n in flagged)
+                   + " (ดูคอลัมน์ `needs_review` ใน `app/columns.csv`)")
+        out.append("")
+
     out.append("## คอลัมน์ทั้งหมด")
     out.append("")
     out.append("| # | ชื่อคอลัมน์ | ประเภท | คำอธิบาย | สูตร / ค่าเริ่มต้น | Key | Ref ไปยัง |")
@@ -236,6 +244,14 @@ def bot_doc(t: dict, cols: list[dict]) -> str:
     out.append(f"| จำนวนคอลัมน์ | {t['column_count']} |")
     out.append(f"| เห็นใน UI | `{t.get('visible')}` |")
     out.append("")
+    flagged = [c["name"] for c in cols if c.get("needs_review")]
+    if flagged:
+        out.append("> ⚠️ **ต้องตรวจสูตรในแอป**: คอลัมน์นี้มีค่าที่ PDF วาดทับกับตารางคุณสมบัติ "
+                   "ของคอลัมน์เอง ทำให้สูตรที่คัดลอกมาอาจไม่ครบ — "
+                   + ", ".join(f"`{n}`" for n in flagged)
+                   + " (ดูคอลัมน์ `needs_review` ใน `app/columns.csv`)")
+        out.append("")
+
     out.append("## คอลัมน์ทั้งหมด")
     out.append("")
     out.append("| # | ชื่อคอลัมน์ | ประเภท | คำอธิบาย | สูตร / ค่าเริ่มต้น | Key |")

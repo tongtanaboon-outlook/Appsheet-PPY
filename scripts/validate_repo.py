@@ -146,6 +146,13 @@ def main() -> int:
                 and v["view_type"] not in view_types]
     rep.add("views carry a known view type", not bad_view, ", ".join(bad_view[:5]))
 
+    # expressions that the PDF renders on top of the property table: these are
+    # flagged so a human can confirm them in the app (not a build failure)
+    flagged = [f"{c['table']} :: {c['name']}" for c in columns if c.get("needs_review")]
+    rep.add("expressions flagged for manual review are listed",
+            len(flagged) == meta.get("counts", {}).get("needs_review", -1),
+            f"{len(flagged)}: " + ", ".join(flagged[:3]))
+
     # every column must have a type
     no_type = [f"{c['table']} :: {c['name']}" for c in columns if not c.get("type")]
     rep.add("every column has a type", not no_type, ", ".join(no_type[:5]))

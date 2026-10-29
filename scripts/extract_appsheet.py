@@ -558,9 +558,20 @@ class Record:
                 self._pending.append(frag)
             # a json/formula value ends as soon as it is balanced - unless the
             # next fragment continues the expression
-            if self._shape in ("json", "formula") and self._balanced():
+            if self._shape in ("json", "formula"):
+                text = join_value(self._pending, self._shape)
                 nxt = frags[idx + 1] if idx + 1 < len(frags) else next_line
-                if nxt is None or not CONTINUATION_TOKENS.match(nxt.strip()):
+                if self._shape == "json":
+                    done = json_balanced(text)
+                else:
+                    # a formula that ends with an operator ("... * 1000" split
+                    # across a line break) is not finished yet
+                    done = (formula_balanced(text)
+                            and not text.rstrip().endswith(TRAILING_OPERATORS))
+                    if done and nxt is not None \
+                            and CONTINUATION_TOKENS.match(nxt.strip()):
+                        done = False
+                if done:
                     self._emit()
 
     def split_leading_name(self, heading_name: str, frags: list[str]) -> list[str]:
@@ -588,6 +599,7 @@ def parse_document(blocks: list[list[str]]) -> dict:
     cur: Record | None = None
     cur_table: str | None = None
     skip_next_value = False
+    canonical: dict[str, str] = {}
     prev_was_heading = False
     i = 0
     n = len(blocks)
@@ -631,9 +643,23 @@ def parse_document(blocks: list[list[str]]) -> dict:
 
         if heading is not None:
             kind, fields, trailing = heading
+            if kind == "table":
+                nm = fields.get("name", "")
+                canonical[re.sub(r"\s+", "", nm)] = nm
+            # Edge case: the PDF paints the values of the *previous* record
+            # after this record's heading (labels are vertically centred).
+            if (cur is not None and cur._pending_labels and i + 2 < n):
+                nxt, nxt2 = blocks[i + 1], blocks[i + 2]
+                labs2 = label_block_labels(nxt2)
+                if (not label_block_labels(nxt)
+                        and match_heading(nxt) is None
+                        and labs2 and labs2[0].endswith("name")):
+                    cur.add_fragments(nxt, None)
+                    i += 1
             if kind == "schema":
                 name = fields.get("name", "")
-                cur_table = name[:-len("_Schema")] if name.endswith("_Schema") else name
+                base = name[:-len("_Schema")] if name.endswith("_Schema") else name
+                cur_table = canonical.get(re.sub(r"\s+", "", base), base)
                 cur = None
                 skip_next_value = True   # the schema's own "Visible?" row
                 i += 1
@@ -655,14 +681,31 @@ def parse_document(blocks: list[list[str]]) -> dict:
             skip_next_value = False
             i += 1
             continue
-        elif len(block) == 1 and block[0].strip() in LABEL_SUFFIXES and cur is not None:
-            cur.merge_suffix(block[0].strip())
+        elif (len(block) == 1 and block[0].strip() in LABEL_SUFFIXES
+              and cur is not None and cur.merge_suffix(block[0].strip())):
+            # the second half of a two-line label -> merge it into the label
             skip_next_value = False
             i += 1
             continue
+        elif (len(block) == 1 and block[0].strip() in LABEL_SUFFIXES
+              and cur is not None):
+            # looks like a label suffix but no label is waiting for it.
+            # Only boolean literals can be real values ('true' as a condition);
+            # the other suffixes are leftovers of an already merged label.
+            if block[0].strip().lower() not in ("true", "false"):
+                prev_was_heading = False
+                i += 1
+                continue
 
         # value block
-        if is_decoration(block):
+        if (is_decoration(block) and cur is not None
+                and not cur._pending_labels and not cur._pending):
+            # a decorative glyph painted next to a heading (icon of the view)
+            # - but never a real value such as the "Action icon" field
+            prev_was_heading = False
+            i += 1
+            continue
+        if is_decoration(block) and cur is None:
             prev_was_heading = False
             i += 1
             continue
@@ -687,7 +730,11 @@ def parse_document(blocks: list[list[str]]) -> dict:
             if kind == "L":
                 cur.add_label(str(payload))
             elif kind == "S":
-                cur.merge_suffix(str(payload))
+                if not cur.merge_suffix(str(payload)):
+                    # not a label suffix after all -> it may be a plain value
+                    # (only boolean literals qualify)
+                    if str(payload).strip().lower() in ("true", "false"):
+                        cur.add_fragments([str(payload)], None)
             else:
                 frags = list(payload)                 # type: ignore[arg-type]
                 if cur._pending_labels and cur._pending_labels[0].endswith("name"):
@@ -754,10 +801,21 @@ def build_output(parsed: dict) -> dict:
         })
 
     # attach columns to their owning table (the schema heading owns them)
+    table_names = [t["name"] for t in tables]
+    name_set = set(table_names)
+    by_nospace = {re.sub(r"\s+", "", n): n for n in table_names}
+
     for r in [x for x in recs if x.kind == "column"]:
         f = r.fields
         tq_raw = _scalar(f.get("Type Qualifier", ""))
         tq = try_json(tq_raw)
+        if tq:
+            for key in ("ReferencedTableName", "ReferencedRootTableName"):
+                val = tq.get(key)
+                if isinstance(val, str) and val and val not in name_set:
+                    fixed = by_nospace.get(re.sub(r"\s+", "", val))
+                    if fixed:
+                        tq[key] = fixed
         columns.append({
             "table": r.owner or "",
             "index": r.heading.get("index"),

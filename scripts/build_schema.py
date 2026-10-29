@@ -55,6 +55,26 @@ BOT_TABLES = {
 }
 
 
+# Chrome paints long values on top of the column property table, so a few
+# formulas/initial values in the PDF come out with property values mixed in.
+# We flag them instead of silently shipping a wrong expression.
+LEAK_PATTERNS = [
+    re.compile(r"\b(en-GB|th-TH)\b"),
+    re.compile(r"(?:Yes|No)(?:\s+(?:Yes|No)){2,}"),
+    re.compile(r"(?:Yes|No)\s+No\s+0\s+No"),
+]
+TRAILING_OPERATORS = (",", "(", "[", "+", "-", "*", "/", "&", "|", "<", ">")
+
+
+def needs_review(text: str) -> bool:
+    t = (text or "").strip()
+    if not t:
+        return False
+    if t.endswith(TRAILING_OPERATORS):
+        return True
+    return any(p.search(t) for p in LEAK_PATTERNS)
+
+
 def classify(table: dict) -> str:
     """business | bot | system."""
     name = table["name"]
@@ -153,6 +173,9 @@ def main() -> int:
             ("suggested_values", tq.get("Suggested_Values", "") or ""),
             ("enum_values", tq.get("EnumValues", "") or ""),
             ("type_qualifier_raw", c["type_qualifier_raw"]),
+            ("needs_review", "YES" if (
+                needs_review(c["app_formula"]) or needs_review(c["initial_value"])
+                or needs_review(c["type_qualifier_raw"])) else ""),
         ]))
     write_csv(out / "app" / "columns.csv", col_rows)
 
@@ -225,6 +248,10 @@ def main() -> int:
             ("actions", len(data["actions"])),
             ("slices", len(data["slices"])),
             ("format_rules", len(data["format_rules"])),
+            ("needs_review", sum(
+                1 for c in columns
+                if needs_review(c["app_formula"]) or needs_review(c["initial_value"])
+                or needs_review(c["type_qualifier_raw"]))),
         ])),
     ])
     (out / "app" / "meta.json").write_text(
